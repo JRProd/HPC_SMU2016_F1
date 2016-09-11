@@ -15,3 +15,8 @@ rebuild :
 	rm -f *.txt
 	make proj1_a.exe
 	make proj1_b.exe
+
+uninstall :
+	rm -f *.o
+	rm -f *.txt
+	rm -f *.exe

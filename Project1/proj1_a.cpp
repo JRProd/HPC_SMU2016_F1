@@ -50,9 +50,10 @@ int main()
 
         f(i) = pow(e,z(i));
 
-        err4(i) = abs(f(i)-p4(i));
-        err8(i) = abs(f(i)-p8(i));
-        err12(i) = abs(f(i)-p12(i));
+        err4(i) = (double)f(i)-(double)p4(i);
+        err8(i) = (double)f(i)-(double)p8(i);
+        err12(i) = (double)f(i)-(double)p12(i);
+	//std::cout << f(i) - p4(i) << " = " << f(i) << " - " << p4(i) << "\n";
     }
 
     z.Write("z.txt");
