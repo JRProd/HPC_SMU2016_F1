@@ -66,21 +66,29 @@ int main()
 	}
 
 	//Create file objects to trasnfer r and R to txt files
+	std::ofstream nFile;
+	std::ofstream hFile;
 	std::ofstream rFile;
 	std::ofstream RFile;
 
 	//Open txt files
+	nFile.open("n.txt");
+	hFile.open("h.txt");
 	rFile.open("r.txt");
 	RFile.open("R.txt");
 
 	//Write to txt files
 	for (int i = 0; i < r.size(); ++i)
 	{
+		nFile << n[i] << "\n";
+		hFile << h[i] << "\n";
 		rFile << r[i] << "\n";
 		RFile << R[i] << "\n";
 	}
 
 	//Clsoe files
+	nFile.close();
+	hFile.close();
 	rFile.close();
 	RFile.close();
 }
