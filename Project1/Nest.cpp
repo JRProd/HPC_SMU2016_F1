@@ -1,9 +1,17 @@
+/* Project - Project 1: Part A
+ * Professor - Dr. Xu
+ * Date - 9/15/16
+ * Author - Jake Rowland
+ * Purpose - Implement Horners algorithm
+*/
+
 #include <iostream>
 #include "matrix.hpp"
 
 class Nest
 {
 public:
+    //Static method that implements Horners algorithm 
     static double nest(Matrix& a, double x)
     {
         //Gets the size of the vector and stores it locally

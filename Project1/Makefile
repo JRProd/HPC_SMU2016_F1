@@ -1,5 +1,9 @@
 CXX=g++
 
+proj1 : proj1_a.o proj1_b.o Nest.o matrix.cpp
+	$(CXX) proj1_a.o Nest.o matrix.cpp -o proj1_a.exe
+	$(CXX) proj1_b.o -o proj1_b.exe
+
 proj1_a.exe : proj1_a.o Nest.o matrix.cpp
 	$(CXX) $^ -o $@
 

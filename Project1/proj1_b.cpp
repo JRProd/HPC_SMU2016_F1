@@ -1,26 +1,38 @@
+/* Project - Project 1: Part B
+ * Professor - Dr. Xu
+ * Date - 9/15/16
+ * Author - Jake Rowland
+ * Purpose - Find the relative error and upper bounds in approximating a fuctions derivative.
+*/
+
+
 #include <vector>
 #include <cmath>
 #include <iostream>
+#include <fstream>
 
-
+//Represents f(x) = x^{-3}
 double fx(double x)
 {
 	return pow(x,-3);
 }
 
+//Represents f'(x) = -3x^{-4}
 double fPrime(double x)
 {
 	return -3 * pow(x,-4);
 }
 
+//Represents f"(x) = 12x^{-5}
 double fDoublePrime(double x)
 {
 	return 12 * pow(x, -5);
 }
 
+//Calcuates the error in approximating the derivative of a fuction
 int main()
 {
-	std::cout << "Starting Code!\n";
+	//Create the decreasing interaval for the standard derivative formula
 	std::vector<int> n;
 	std::vector<double> h;
 
@@ -30,32 +42,45 @@ int main()
 		h.push_back(pow(2,-i));
 	}
 
+	//Create vector for approximate error(r) and upper bound error(R)
 	std::vector<double> r;
 	std::vector<double> R;
 
+	//Create three constants to reduce arithmatic overhead
 	double fConst = fx(3);
 	double fPrimeConst = fPrime(3);
 	double fDoubleConst = fDoublePrime(3);
 
+	//Create constant u to represnt error in rounding to dpMachine numbers
 	double u = pow(2,-52)/2;
 
+	//Create constant for the upper bound error
 	double c1 = std::abs( fDoubleConst / ( 2 * fPrimeConst ) );
 	double c2 = std::abs( ( fConst * pow(2,-52) / fPrimeConst));
 
-	std::cout << u << "=u\n";
-	std::cout << fConst << "=fConst\n" << fPrimeConst << "=fPrimeConst\n" << fDoubleConst << "=fDoulbeConst\n";
-	std::cout << c1 << "=c1\n" << c2 << "=c2\n";
-
+	//Calculate the errors for decreasing values of h
 	for (int i = 0; i < h.size(); ++i)
 	{
-		std::cout << i << "=i  :  " << h[i] << "=h[i]\n";
 		r.push_back(std::abs(-h[i]*(fDoubleConst/(2*fPrimeConst)) + (1/h[i])*(u*fConst + u*fConst)/fPrimeConst));
 		R.push_back(c1*h[i] + c2*(1/h[i]));
 	}
 
-	for(int i = 0; i < R.size(); i++)
+	//Create file objects to trasnfer r and R to txt files
+	std::ofstream rFile;
+	std::ofstream RFile;
+
+	//Open txt files
+	rFile.open("r.txt");
+	RFile.open("R.txt");
+
+	//Write to txt files
+	for (int i = 0; i < r.size(); ++i)
 	{
-		std::cout << r[i] << "  :  ";
-		std::cout << R[i] << std::endl;
+		rFile << r[i] << "\n";
+		RFile << R[i] << "\n";
 	}
+
+	//Clsoe files
+	rFile.close();
+	RFile.close();
 }
