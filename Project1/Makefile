@@ -3,7 +3,7 @@ CXX=g++
 proj1_a.exe : proj1_a.o Nest.o matrix.cpp
 	$(CXX) $^ -o $@
 
-proj1_b.exe : proj1_b.o matrix.cpp
+proj1_b.exe : proj1_b.o
 	$(CXX) $^ -o $@
 
 clean :
