@@ -61,7 +61,7 @@ int main()
 	//Calculate the errors for decreasing values of h
 	for (int i = 0; i < h.size(); ++i)
 	{
-		r.push_back(std::abs(-h[i]*(fDoubleConst/(2*fPrimeConst)) + (1/h[i])*(u*fConst + u*fConst)/fPrimeConst));
+		r.push_back(std::abs((fPrimeConst - ((fx(3+h[i]) - fConst) / h[i])) / fPrimeConst));
 		R.push_back(c1*h[i] + c2*(1/h[i]));
 	}
 
