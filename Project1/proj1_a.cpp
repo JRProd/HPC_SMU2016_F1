@@ -7,7 +7,7 @@
 
 #include "matrix.hpp"
 #include "Nest.cpp"
-#include <math.h>
+#include <cmath>
 
 //Find approximations of e^x for three taylor polynomials and the error of these approximations
 int main()
@@ -73,9 +73,9 @@ int main()
         f(i) = pow(e,z(i));
 
         //Compute the error in approximation
-        err4(i) = (double)f(i)-(double)p4(i);
-        err8(i) = (double)f(i)-(double)p8(i);
-        err12(i) = (double)f(i)-(double)p12(i);
+        err4(i) = std::abs((double)f(i)-(double)p4(i));
+        err8(i) = std::abs((double)f(i)-(double)p8(i));
+        err12(i) = std::abs((double)f(i)-(double)p12(i));
     }
 
     //Write each of the vectors to a text file
