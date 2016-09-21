@@ -12,6 +12,9 @@ CXX = g++
 CXXFLAGS = -O -std=c++11
 
 # makefile targets
+proj2_a.exe : vandermonde.cpp matrix.cpp
+	${CXX} ${CXXFLAGS} $^ -o $@
+
 all : test_bisect.exe 
 
 test_bisect.exe : test_bisect.cpp bisection.cpp
