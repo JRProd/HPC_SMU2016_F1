@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <cstdlib>
 #include "matrix.hpp"
 
 int main() {
@@ -24,14 +25,46 @@ int main() {
 			power ++;
 		}
 
-		Matrix x = Random(n[i]);
+		//True value of x
+		Matrix xMat = Random(n[i]);
 
-		Matrix B = A*x;
+		//True value of b with value of x
+		Matrix B(n[i]);
 
-		Matrix xHat = LinearSolve(A,B);
+		for(int x = 0; x < n[i]; x++)
+		{
+			double bi = 0;
+			for(int y = 0; y < n[i]; y++)
+			{
+				double tempA = A(x,y);
+				double tempX = xMat(y);
+				bi += tempA * tempX;
+			}
+			B(x) = bi;
+		}
 
-		xHat.Write();
-		x.Write();
-		std::cout << "\n";
+		Matrix Acopy1 = A;
+		Matrix Bcopy1 = B;
+		
+		//Approximate value of x
+		Matrix xHat = LinearSolve(Acopy1,Bcopy1);
+
+		//Approximate value of b
+		Matrix bHat = A*xHat;
+
+		Matrix residual = B - bHat;
+		Matrix error = xMat - xHat;
+
+		double residualNorm = Norm(residual);
+		double errorNorm = Norm(error);
+
+		std::cout << "Resudual Norm is = " << residualNorm << "\n";
+		std::cout << "Error Norm is = " << errorNorm << "\n\n";
+
+		//########## ERROR is xMat-xHat ##########
+
+		//########## 
+
+		
 	}
 }
