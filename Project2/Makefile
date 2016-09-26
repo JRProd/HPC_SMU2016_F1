@@ -15,6 +15,9 @@ CXXFLAGS = -O -std=c++11
 proj2_a.exe : vandermonde.cpp matrix.cpp
 	${CXX} ${CXXFLAGS} $^ -o $@
 
+proj2_b.exe : newton.cpp test_newton.cpp
+	${CXX} ${CXXFLAGS} $^ -o $@
+
 all : test_bisect.exe 
 
 test_bisect.exe : test_bisect.cpp bisection.cpp
