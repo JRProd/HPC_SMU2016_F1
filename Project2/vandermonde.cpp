@@ -1,6 +1,7 @@
 // Starting Project 2
 
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <cmath>
 #include <cstdlib>
@@ -8,6 +9,9 @@
 
 int main() {
 	std::vector<int> n = {5, 9, 17, 33, 65};
+	std::ofstream residOut("residual.txt", std::ios::out);
+	std::ofstream errorOut("error.txt", std::ios::out);
+	std::ofstream nOut("n.txt", std::ios::out);
 
 	for(int i = 0; i < n.size(); i++)
 	{
@@ -58,13 +62,8 @@ int main() {
 		double residualNorm = Norm(residual);
 		double errorNorm = Norm(error);
 
-		std::cout << "Resudual Norm is = " << residualNorm << "\n";
-		std::cout << "Error Norm is = " << errorNorm << "\n\n";
-
-		//########## ERROR is xMat-xHat ##########
-
-		//########## 
-
-		
+		residOut <<  residualNorm << "\n";
+		errorOut << errorNorm << "\n";
+		nOut << n[i] << "\n";
 	}
 }

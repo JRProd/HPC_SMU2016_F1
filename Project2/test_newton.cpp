@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <cmath>
 #include "newton.cpp"
 #include "fcn.hpp"
@@ -22,7 +23,7 @@ class fderv: public Fcn
 int main ()
 {
 	std::cout << "STARTING PROJECT 2 - PART B \n\n";
-
+	
 	Newton proj2;
 	double x0[3] = {-3, 1, 2};
 	double e[3] = {pow(10, -1), pow(10, -5), pow (10, -9)};
