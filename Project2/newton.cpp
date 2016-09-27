@@ -12,10 +12,11 @@ public:
 	{
 		double x = xStart;
 		double fx = f(x);
+		std::cout << "Starting Newton.cpp\n" << "x=" << x << "  ::  "<< "fx=" << fx << "\n"; 
 		for(int i = 0; i < maxit; i++)
 		{
 			double fp = df(x);
-			if(fabs(fp) < pow(10, -9))
+			if(std::abs(fp) < pow(10, -9))
 			{
 				if(show_iterates)
 					std::cout << "Too Small Derivative\n";
@@ -23,11 +24,11 @@ public:
 			}
 
 			double d = (double)fx/(double)fp;
-			//std::cout << "d=" << fabs(d) <<  "  :: tol=" << tol << "\n";
+			//std::cout << "d=" << std::abs(d) <<  "  :: tol=" << tol << "\n";
 			x = x - d;
 			fx = f(x);
 
-			if(fabs(d) < tol)
+			if(std::abs(d) < tol)
 			{
 				if(show_iterates)
 				{
@@ -38,7 +39,7 @@ public:
 
 			if(show_iterates)
 			{
-				std::cout << "Iter=" << i << "  ::  x=" << x << "  ::  fx=" << fx << "\n";
+				std::cout << "Iter=" << i << "  ::  x=" << x << "  ::  fx=" << fx << "  ::  fp=" << fp <<"\n";
 			}
 		}
 		return x;

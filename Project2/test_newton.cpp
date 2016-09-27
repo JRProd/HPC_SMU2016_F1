@@ -16,7 +16,7 @@ class fderv: public Fcn
 {
 	double operator()(double x)
 	{
-		return x * (4 * pow(x, 4) - 3 * x - 12); 
+		return x * ((4 * pow(x, 2)) - (3 * x) - 12); 
 	}
 };
 
