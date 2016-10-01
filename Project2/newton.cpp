@@ -8,11 +8,10 @@
 
 class Newton{
 public:
-	double newton(Fcn& f, Fcn& df, double xStart, int maxit, double tol, bool show_iterates)
+	static double newton(Fcn& f, Fcn& df, double xStart, int maxit, double tol, bool show_iterates)
 	{
 		double x = xStart;
 		double fx = f(x);
-		std::cout << "Starting Newton.cpp\n" << "x=" << x << "  ::  "<< "fx=" << fx << "\n"; 
 		for(int i = 0; i < maxit; i++)
 		{
 			double fp = df(x);
@@ -24,7 +23,6 @@ public:
 			}
 
 			double d = (double)fx/(double)fp;
-			//std::cout << "d=" << std::abs(d) <<  "  :: tol=" << tol << "\n";
 			x = x - d;
 			fx = f(x);
 

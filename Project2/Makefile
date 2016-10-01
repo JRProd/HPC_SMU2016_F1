@@ -13,12 +13,15 @@ CXXFLAGS = -O -std=c++11
 
 # makefile targets
 
-all : proj2_a.exe proj2_b.exe
+all : vandermonde.exe test_newton.exe kepler.exe
 
-proj2_a.exe : vandermonde.cpp matrix.cpp
+kepler.exe : kepler.cpp newton.cpp
 	${CXX} ${CXXFLAGS} $^ -o $@
 
-proj2_b.exe : newton.cpp test_newton.cpp
+vandermonde.exe : vandermonde.cpp matrix.cpp
+	${CXX} ${CXXFLAGS} $^ -o $@
+
+test_newton.exe : newton.cpp test_newton.cpp
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 all : test_bisect.exe 
