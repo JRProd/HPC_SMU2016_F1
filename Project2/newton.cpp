@@ -56,7 +56,7 @@ public:
 			//Print each value if wanted
 			if(show_iterates)
 			{
-				std::cout << "Iter=" << i << "  ::  x=" << x << "  ::  fx=" << fx << "  ::  fp=" << fp <<"\n";
+				std::cout << "Iter=" << i << "  ::  x=" << x << "  ::  d=" << std::abs(d) << "  ::  fx=" << std::abs(fx) <<"\n";
 			}
 		}
 
