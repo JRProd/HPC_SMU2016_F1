@@ -7,6 +7,13 @@
 #  16 September 2015
 ###################################################################
 
+###################################################################
+# Edited by Jake Rowland for Project 2 of HPC
+# Math 3316
+# 10/6/2016
+###################################################################
+
+
 # compilation definitions
 CXX = g++
 CXXFLAGS = -O -std=c++11
@@ -22,11 +29,6 @@ vandermonde.exe : vandermonde.cpp matrix.cpp
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 test_newton.exe : newton.cpp test_newton.cpp
-	${CXX} ${CXXFLAGS} $^ -o $@
-
-all : test_bisect.exe 
-
-test_bisect.exe : test_bisect.cpp bisection.cpp
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 clean :
