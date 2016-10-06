@@ -12,7 +12,7 @@
 using namespace std;
 
 // singularity tolerance
-#define STOL 1.e-15
+#define STOL 1.e-20
 
 
 // This file implements the operations defined in Matrix class, along with a
