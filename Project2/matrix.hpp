@@ -2,8 +2,8 @@
    SMU Mathematics
    19 June 2015
 
-   This file defines the Matrix class, as well a variety of linear
-   algebra functions defined based on matrices and vectors.  Here,
+   This file defines the Matrix class, as well a variety of linear 
+   algebra functions defined based on matrices and vectors.  Here, 
    "vectors" are considered as std::vector<double> objects. */
 
 #ifndef MATRIX_DEFINED__
@@ -95,7 +95,7 @@ public:
   // in-place arithmetic shortcut operators -- 0=success, 1=fail
   int operator+=(const Matrix& A) { return Add(A); };      // C = C+A
   int operator+=(double a)        { return Add(a); };      // C = C+a (add a to all entries)
-  int operator-=(const Matrix& A) { return Subtract(A); }; // C = C-A
+  int operator-=(const Matrix& A) { return Subtract(A); }; // C = C-A 
   int operator-=(double a)        { return Subtract(a); }; // C = C-a (add -a to all entries)
   int operator*=(const Matrix& A) { return Multiply(A); }; // C = C.*A (componentwise multiply)
   int operator*=(double a)        { return Multiply(a); }; // C = a*C
@@ -170,11 +170,11 @@ std::vector<double> Linspace(double a, double b, size_t n);
 
 // creates a vector of n logarithmically spaced values from 10^a through 10^b
 std::vector<double> Logspace(double a, double b, size_t n);
-
+	   
 // creates a vector of n uniformly-distributed random values
 std::vector<double> Random(size_t n);
 
-// output routines
+// output routines 
 std::ostream& operator<<(std::ostream& os, const std::vector<double>& v);
 
 // extract/insert routines for portions of vectors

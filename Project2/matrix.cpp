@@ -12,7 +12,7 @@
 using namespace std;
 
 // singularity tolerance
-#define STOL 1.e-15
+#define STOL 1.e-20
 
 
 // This file implements the operations defined in Matrix class, along with a
@@ -93,7 +93,7 @@ Matrix::Matrix(vector< vector<double> > vals) {
 vector<string>& split(const string& s, char delim, vector<string>& elems) {
   stringstream ss(s);
   string item;
-  while (getline(ss, item, delim))
+  while (getline(ss, item, delim)) 
     elems.push_back(item);
   return elems;
 }
@@ -128,7 +128,7 @@ Matrix::Matrix(string mat_spec) {
       return;
     }
   }
-
+   
   // allocate matrix data
   data.resize(n);
   for (size_t j=0; j<n; j++)
@@ -170,14 +170,14 @@ Matrix& Matrix::operator=(const Matrix& A) {
 }
 
 // dimension accessor routines
-size_t Matrix::Size() const {
-  return ncols*nrows;
+size_t Matrix::Size() const { 
+  return ncols*nrows; 
 }
-size_t Matrix::Columns() const {
-  return ncols;
+size_t Matrix::Columns() const { 
+  return ncols; 
 }
-size_t Matrix::Rows() const {
-  return nrows;
+size_t Matrix::Rows() const { 
+  return nrows; 
 }
 
 // column accessor routines
@@ -213,7 +213,7 @@ double Matrix::operator()(size_t idx) const {
 // write myself to stdout
 int Matrix::Write() const {
 
-  // print data to screen
+  // print data to screen 
   for (size_t i=0; i<nrows; i++) {
     for (size_t j=0; j<ncols; j++)
       printf("  %.17g", data[j][i]);
@@ -270,19 +270,19 @@ int Matrix::Product(const Matrix& A, const Matrix& X) {
   // check that array sizes match
   if (A.nrows != nrows || A.ncols != X.nrows || X.ncols != ncols) {
     cerr << "Matrix::Product error, matrix size mismatch\n";
-    cerr << "  Matrix 1 is " << A.nrows << " x " << A.ncols
-	 << "  Matrix 2 is " << X.nrows << " x " << X.ncols
+    cerr << "  Matrix 1 is " << A.nrows << " x " << A.ncols 
+	 << "  Matrix 2 is " << X.nrows << " x " << X.ncols 
 	 << ", output is " << nrows << " x " << ncols << endl;
     return 1;
   }
-
+  
   // perform operation
   this->Constant(0.0);
-  for (size_t k=0; k<ncols; k++)
+  for (size_t k=0; k<ncols; k++) 
     for (size_t j=0; j<A.Columns(); j++)
-      for (size_t i=0; i<A.Rows(); i++)
+      for (size_t i=0; i<A.Rows(); i++) 
 	(*this)(i,k) += A(i,j)*X(j,k);
-
+    
   // return success
   return 0;
 
@@ -293,20 +293,20 @@ int Matrix::Product(const Matrix& A, const Matrix& X) {
 int Matrix::LinearSum(double a, const Matrix& A, double b, const Matrix& B) {
 
   // check that array sizes match
-  if (A.nrows != nrows || A.ncols != ncols ||
+  if (A.nrows != nrows || A.ncols != ncols || 
       B.nrows != nrows || B.ncols != ncols) {
     cerr << "Matrix::LinearSum error, matrix size mismatch\n";
-    cerr << "  Matrix 1 is " << nrows << " x " << ncols
-	 << ",  Matrix 2 is " << A.nrows << " x " << A.ncols
+    cerr << "  Matrix 1 is " << nrows << " x " << ncols 
+	 << ",  Matrix 2 is " << A.nrows << " x " << A.ncols 
 	 << ",  Matrix 3 is " << B.nrows << " x " << B.ncols << endl;
     return 1;
   }
-
+  
   // perform operation
   for (size_t j=0; j<B.ncols; j++)
     for (size_t i=0; i<B.nrows; i++)
       data[j][i] = a*A.data[j][i] + b*B.data[j][i];
-
+  
   // return success
   return 0;
 }
@@ -325,16 +325,16 @@ int Matrix::Multiply(const Matrix& A) {
   // check that array sizes match
   if (A.nrows != nrows || A.ncols != ncols) {
     cerr << "Matrix::Multiply error, matrix size mismatch\n";
-    cerr << "  Matrix 1 is " << nrows << " x " << ncols
+    cerr << "  Matrix 1 is " << nrows << " x " << ncols 
 	 << ",  Matrix 2 is " << A.nrows << " x " << A.ncols << endl;
     return 1;
   }
-
+  
   // perform operation
   for (size_t j=0; j<A.ncols; j++)
     for (size_t i=0; i<A.nrows; i++)
       data[j][i] *= A.data[j][i];
-
+  
   // return success
   return 0;
 }
@@ -346,7 +346,7 @@ int Matrix::Multiply(double a) {
   for (size_t j=0; j<ncols; j++)
     for (size_t i=0; i<nrows; i++)
       data[j][i] *= a;
-
+  
   // return success
   return 0;
 }
@@ -357,11 +357,11 @@ int Matrix::Divide(const Matrix& A) {
   // check that array sizes match
   if (A.nrows != nrows || A.ncols != ncols) {
     cerr << "Matrix::Divide error, matrix size mismatch\n";
-    cerr << "  Matrix 1 is " << nrows << " x " << ncols
+    cerr << "  Matrix 1 is " << nrows << " x " << ncols 
 	 << ",  Matrix 2 is " << A.nrows << " x " << A.ncols << endl;
     return 1;
   }
-
+  
   // perform operation where A is nonzero, otherwise return with error
   for (size_t j=0; j<ncols; j++)
     for (size_t i=0; i<nrows; i++) {
@@ -380,15 +380,15 @@ int Matrix::Copy(const Matrix& A) {
   // check that array sizes match
   if (A.nrows != nrows || A.ncols != ncols) {
     cerr << "Matrix::Copy error, matrix size mismatch\n";
-    cerr << "  Matrix 1 is " << nrows << " x " << ncols
+    cerr << "  Matrix 1 is " << nrows << " x " << ncols 
 	 << ",  Matrix 2 is " << A.nrows << " x " << A.ncols << endl;
     return 1;
   }
-
+  
   // perform operation
   for (size_t j=0; j<A.ncols; j++)
     data[j] = A.data[j];
-
+  
   // return success
   return 0;
 }
@@ -406,8 +406,8 @@ int Matrix::Insert(const Matrix& A, long int is, long int ie, long int js, long 
   // check that array sizes match
   if (A.nrows != (ie-is+1) || A.ncols != (je-js+1)) {
     cerr << "Matrix::Insert error, matrix size mismatch\n";
-    cerr << "  supplied Matrix is " << A.nrows << " x " << A.ncols
-	 << ", but requested submatrix is " << ie-is+1 << " x "
+    cerr << "  supplied Matrix is " << A.nrows << " x " << A.ncols 
+	 << ", but requested submatrix is " << ie-is+1 << " x " 
 	 << je-js+1 << endl;
     return 1;
   }
@@ -434,24 +434,24 @@ int Matrix::Insert(const Matrix& A, long int is, long int ie, long int js, long 
   }
   if (ie < is || je < js) {
     cerr << "Matrix::Insert error, requested submatrix does not exist\n";
-    cerr << "  upper index is below lower index: is = " << is << ", ie = "
+    cerr << "  upper index is below lower index: is = " << is << ", ie = " 
 	 << ie << ", js = " << js << ", je = " << je << endl;
     return 1;
   }
-
+  
   // perform operation
-  for (size_t j=0; j<A.ncols; j++)
-    for (size_t i=0; i<A.nrows; i++)
+  for (size_t j=0; j<A.ncols; j++)  
+    for (size_t i=0; i<A.nrows; i++)  
       data[j+js][i+is] = A.data[j][i];
-
+  
   // return success
   return 0;
 }
 
 //   C = a  (sets all entries of C to the scalar a)
 int Matrix::Constant(double a) {
-  for (size_t j=0; j<ncols; j++)
-    for (size_t i=0; i<nrows; i++)
+  for (size_t j=0; j<ncols; j++)  
+    for (size_t i=0; i<nrows; i++)  
       data[j][i] = a;
   return 0;
 }
@@ -490,7 +490,7 @@ int Matrix::Trans() {
     for (size_t j=0; j<nrows; j++)
       newdata[j].resize(ncols);
 
-    // copy transposed data over
+    // copy transposed data over 
     for (size_t j=0; j<ncols; j++)
       for (size_t i=0; i<nrows; i++)
 	newdata[i][j] = data[j][i];
@@ -501,12 +501,12 @@ int Matrix::Trans() {
     // swap matrix dimensions
     std::swap(nrows, ncols);
   }
-
+  
   // return success
   return 0;
 }
 
-// computes the inverse of a nonsingular matrix
+// computes the inverse of a nonsingular matrix 
 int Matrix::Inverse() {
 
   // check that matrix sizes match
@@ -567,7 +567,7 @@ Matrix Matrix::Extract(long int is, long int ie, long int js, long int je) {
   }
   if (ie < is || je < js) {
     cerr << "Matrix::Extract error, requested submatrix does not exist\n";
-    cerr << "  upper index is below lower index: is = " << is << ", ie = "
+    cerr << "  upper index is below lower index: is = " << is << ", ie = " 
 	 << ie << ", js = " << js << ", je = " << je << endl;
   }
 
@@ -575,8 +575,8 @@ Matrix Matrix::Extract(long int is, long int ie, long int js, long int je) {
   Matrix C(ie-is+1, je-js+1);
 
   // copy requested data
-  for (size_t j=js; j<=je; j++)
-    for (size_t i=is; i<=ie; i++)
+  for (size_t j=js; j<=je; j++) 
+    for (size_t i=is; i<=ie; i++) 
       C.data[j-js][i-is] = data[j][i];
 
   // return object
@@ -613,7 +613,7 @@ bool Matrix::operator==(const Matrix& A) const {
 
   // detailed check on values
   bool equal = true;
-  for (size_t j=0; j<ncols; j++)
+  for (size_t j=0; j<ncols; j++)  
     for (size_t i=0; i<nrows; i++)
       equal &= (A.data[j][i] == data[j][i]);
   return equal;
@@ -628,7 +628,7 @@ double Dot(const Matrix& A, const Matrix& B) {
   if ((A.Columns() != B.Columns()) || (A.Rows() != B.Rows())) {
     cerr << "Dot error, matrix objects must be the same size\n";
   } else {
-    for (size_t j=0; j<A.Columns(); j++)
+    for (size_t j=0; j<A.Columns(); j++) 
       for (size_t i=0; i<A.Rows(); i++)
 	sum += A(i,j) * B(i,j);
   }
@@ -638,7 +638,7 @@ double Dot(const Matrix& A, const Matrix& B) {
 // matrix Frobenius norm (column/row vector 2-norm)
 double Norm(const Matrix& A) {
   double sum=0.0;
-  for (size_t j=0; j<A.Columns(); j++)
+  for (size_t j=0; j<A.Columns(); j++) 
     for (size_t i=0; i<A.Rows(); i++)
       sum += A(i,j)*A(i,j);
   return sqrt(sum);
@@ -649,7 +649,7 @@ double InfNorm(const Matrix& A) {
   double mx=0.0;
   for (size_t i=0; i<A.Rows(); i++) {
     double sum=0.0;
-    for (size_t j=0; j<A.Columns(); j++)
+    for (size_t j=0; j<A.Columns(); j++) 
       sum += std::abs(A(i,j));
     mx = std::max(mx,sum);
   }
@@ -729,17 +729,17 @@ Matrix operator*(const Matrix& A, const Matrix& B) {
       for (size_t i=0; i<B.Rows(); i++)
 	C.data[j][i] = A.data[0][0] * B.data[j][i];
     return C;
-
+    
   // scalar-times-matrix
   } else if (B_scalar) {
-
+    
     // create new Mat for output, and do operation
     Matrix C(A.Rows(),B.Columns());
     for (size_t j=0; j<A.Columns(); j++)
       for (size_t i=0; i<A.Rows(); i++)
 	C.data[j][i] = A.data[j][i] * B.data[0][0];
     return C;
-
+    
   // normal matrix product
   } else {
 
@@ -750,10 +750,10 @@ Matrix operator*(const Matrix& A, const Matrix& B) {
 	   << ",  Matrix 2 is " << B.Rows() << " x " << B.Columns() << endl;
       return Matrix(0,0);
     } else {
-
+    
       // create new Mat for output, and do operation
       Matrix C(A.Rows(),B.Columns());
-      for (size_t i=0; i<A.Rows(); i++)
+      for (size_t i=0; i<A.Rows(); i++) 
 	for (size_t j=0; j<B.Columns(); j++)
 	  for (size_t k=0; k<A.Columns(); k++)
 	    C.data[j][i] += A.data[k][i] * B.data[j][k];
@@ -821,7 +821,7 @@ Matrix Eye(size_t n) {
 
 // creates a matrix from a specified input file
 Matrix MatrixRead(const char *infile) {
-
+  
   // determine matrix size
   size_t nrows=0, ncols=0;
   ifstream ifs;
@@ -835,7 +835,7 @@ Matrix MatrixRead(const char *infile) {
     if ((n > 0) && (nrows == 0))  // first row, set ncols
       ncols = n;
     if ((n > 0) && (n != ncols)) {  // later row, with bad number of columns
-      cerr << "MatrixRead() error, not all rows in file " << infile
+      cerr << "MatrixRead() error, not all rows in file " << infile 
 	   << " have the same number of cols, "
 	   << n << " != " << ncols << endl;
       return Matrix(0,0);
@@ -850,9 +850,9 @@ Matrix MatrixRead(const char *infile) {
   // load matrix based on data from file
   ifs.open(infile);   // reopen input file
   for (size_t i=0; i<nrows; i++) {
-    getline( ifs, line );
+    getline( ifs, line ); 
     istringstream iss(line);   // convert line to stringstream
-    for (size_t j=0; j<ncols; j++)
+    for (size_t j=0; j<ncols; j++) 
       iss >> A.data[j][i];
   }
   ifs.close();
@@ -863,7 +863,7 @@ Matrix MatrixRead(const char *infile) {
 
 // computes the inverse of a nonsingular matrix A
 Matrix Inverse(const Matrix& A) {
-
+  
   // copy A into a new output matrix
   Matrix X(A);
 
@@ -910,7 +910,7 @@ vector<double> MatVec(const Matrix& A, const vector<double>& v) {
   if (A.Columns() != v.size()) {
     cerr << "MatVec: incompatible matrix/vector sizes in A*v\n";
   } else {
-    for (size_t i=0; i<A.Rows(); i++)
+    for (size_t i=0; i<A.Rows(); i++) 
       for (size_t j=0; j<A.Columns(); j++)
 	res[i] += A(i,j)*v[j];
   }
@@ -945,7 +945,7 @@ double Norm(const vector<double>& v) {
 // vector infinity norm
 double InfNorm(const vector<double>& v) {
   double mx=0.0;
-  for (size_t i=0; i<v.size(); i++)
+  for (size_t i=0; i<v.size(); i++)  
     mx = std::max(mx,std::abs(v[i]));
   return mx;
 }
@@ -1014,7 +1014,7 @@ vector<double> VecExtract(vector<double>& x,
   }
   if (ie < is) {
     cerr << "VecExtract error, requested submatrix does not exist\n";
-    cerr << "  upper index is below lower index: is = " << is << ", ie = "
+    cerr << "  upper index is below lower index: is = " << is << ", ie = " 
 	 << ie << endl;
   }
 
@@ -1022,7 +1022,7 @@ vector<double> VecExtract(vector<double>& x,
   vector<double> y(ie-is+1);
 
   // copy requested data
-  for (size_t i=is; i<=ie; i++)
+  for (size_t i=is; i<=ie; i++) 
     y[i-is] = x[i];
 
   // return object
@@ -1039,7 +1039,7 @@ int VecInsert(vector<double>& x, long int is,
 
   // check that array sizes match
   if (y.size() != (ie-is+1)) {
-    cerr << "VecInsert error, size mismatch\n    supplied vector has " << y.size()
+    cerr << "VecInsert error, size mismatch\n    supplied vector has " << y.size() 
          << " entries, but requested subvector has " << ie-is+1 << " entries\n";
     return 1;
   }
@@ -1056,15 +1056,15 @@ int VecInsert(vector<double>& x, long int is,
   }
   if (ie < is) {
     cerr << "VecInsert error, requested submatrix does not exist\n";
-    cerr << "  upper index is below lower index: is = " << is << ", ie = "
+    cerr << "  upper index is below lower index: is = " << is << ", ie = " 
 	 << ie << endl;
     return 1;
   }
-
+  
   // perform operation
-  for (size_t i=0; i<y.size(); i++)
+  for (size_t i=0; i<y.size(); i++)  
     x[i+is] = y[i];
-
+  
   // return success
   return 0;
 }
@@ -1253,15 +1253,15 @@ vector<double> operator^(const vector<double>& v, const vector<double>& w) {
 int BackSubstitution(const Matrix& U, Matrix& X, const Matrix& B) {
 
   // check that matrix sizes match
-  if (U.Rows() != B.Rows() || U.Rows() != U.Columns() ||
+  if (U.Rows() != B.Rows() || U.Rows() != U.Columns() || 
       B.Columns() != X.Columns() || X.Rows() != U.Rows()) {
     cerr << "BackSubstitution error, incompatible matrix/vector dimensions\n";
-    cerr << "  Matrix is " << U.Rows() << " x " << U.Columns()
+    cerr << "  Matrix is " << U.Rows() << " x " << U.Columns() 
 	 << ",  rhs is " << B.Rows() << " x " << B.Columns()
 	 << ",  solution is " << X.Rows() << " x " << X.Columns() << endl;
     return 1;
   }
-
+  
   // copy B into X
   X.Copy(B);
 
@@ -1278,7 +1278,7 @@ int BackSubstitution(const Matrix& U, Matrix& X, const Matrix& B) {
     }
 
     // solve for this row of solution
-    for (long int k=0; k<X.Columns(); k++)
+    for (long int k=0; k<X.Columns(); k++) 
       X.data[k][j] /= U.data[j][j];
 
     // update all remaining rhs
@@ -1292,14 +1292,14 @@ int BackSubstitution(const Matrix& U, Matrix& X, const Matrix& B) {
   return 0;
 }
 
-// backward substitution on the linear system U*X = B, returning X as a new Matrix;
+// backward substitution on the linear system U*X = B, returning X as a new Matrix; 
 //    U and B remain unchanged in this operation
 Matrix BackSubstitution(const Matrix& U, const Matrix& B) {
 
   // check that matrix sizes match
   if (U.Rows() != B.Rows() || U.Rows() != U.Columns()) {
     cerr << "BackSubstitution error, illegal matrix/vector dimensions\n";
-    cerr << "  Matrix is " << U.Rows() << " x " << U.Columns()
+    cerr << "  Matrix is " << U.Rows() << " x " << U.Columns() 
 	 << ",  rhs is " << B.Rows() << " x " << B.Columns() << endl;
     return Matrix(0,0);
   } else {
@@ -1317,12 +1317,12 @@ int BackSubstitution(const Matrix& U, vector<double>& x, const vector<double>& b
   // check that matrix sizes match
   if (U.Rows() != b.size() || U.Rows() != U.Columns() || x.size() != U.Rows()) {
     cerr << "BackSubstitution error, incompatible matrix/vector dimensions\n";
-    cerr << "  Matrix is " << U.Rows() << " x " << U.Columns()
+    cerr << "  Matrix is " << U.Rows() << " x " << U.Columns() 
 	 << ",  rhs is " << b.size() << " x 1"
 	 << ",  solution is " << x.size() << " x 1\n";
     return 1;
   }
-
+  
   // copy b into x
   x = b;
 
@@ -1356,7 +1356,7 @@ int BackSubstitution(const Matrix& U, vector<double>& x, const vector<double>& b
 vector<double> BackSubstitution(const Matrix& U, const vector<double>& b) {
   if (U.Rows() != b.size() || U.Rows() != U.Columns()) {
     cerr << "BackSubstitution error, illegal matrix/vector dimensions\n";
-    cerr << "  Matrix is " << U.Rows() << " x " << U.Columns()
+    cerr << "  Matrix is " << U.Rows() << " x " << U.Columns() 
 	 << ",  rhs is " << b.size() << " x 1\n";
     return vector<double>(0);
   }
@@ -1374,15 +1374,15 @@ vector<double> BackSubstitution(const Matrix& U, const vector<double>& b) {
 int ForwardSubstitution(const Matrix& L, Matrix& X, const Matrix& B) {
 
   // check that matrix sizes match
-  if (L.Rows() != B.Rows() || L.Rows() != L.Columns() ||
+  if (L.Rows() != B.Rows() || L.Rows() != L.Columns() || 
       B.Columns() != X.Columns() || X.Rows() != L.Rows()) {
     cerr << "ForwardSubstitution error, illegal matrix/vector dimensions\n";
-    cerr << "  Matrix is " << L.Rows() << " x " << L.Columns()
+    cerr << "  Matrix is " << L.Rows() << " x " << L.Columns() 
 	 << ",  rhs is " << B.Rows() << " x " << B.Columns()
 	 << ",  solution is " << X.Rows() << " x " << X.Columns() << endl;
     return 1;
   }
-
+  
   // copy B into X
   X.Copy(B);
 
@@ -1420,7 +1420,7 @@ Matrix ForwardSubstitution(const Matrix& L, const Matrix& B) {
   // check that matrix sizes match
   if (L.Rows() != B.Rows() || L.Rows() != L.Columns()) {
     cerr << "ForwardSubstitution error, illegal matrix/vector dimensions\n";
-    cerr << "  Matrix is " << L.Rows() << " x " << L.Columns()
+    cerr << "  Matrix is " << L.Rows() << " x " << L.Columns() 
 	 << ",  rhs is " << B.Rows() << " x " << B.Columns() << endl;
     return Matrix(0,0);
   } else {
@@ -1437,15 +1437,15 @@ Matrix ForwardSubstitution(const Matrix& L, const Matrix& B) {
 int ForwardSubstitution(const Matrix& L, vector<double>& x, const vector<double>& b) {
 
   // check that matrix sizes match
-  if (L.Rows() != b.size() || L.Rows() != L.Columns() ||
+  if (L.Rows() != b.size() || L.Rows() != L.Columns() || 
       x.size() != L.Rows()) {
     cerr << "ForwardSubstitution error, illegal matrix/vector dimensions\n";
-    cerr << "  Matrix is " << L.Rows() << " x " << L.Columns()
+    cerr << "  Matrix is " << L.Rows() << " x " << L.Columns() 
 	 << ",  rhs is " << b.size() << " x 1"
 	 << ",  solution is " << x.size() << " x 1\n";
     return 1;
   }
-
+  
   // copy B into X
   x = b;
 
@@ -1480,7 +1480,7 @@ vector<double> ForwardSubstitution(const Matrix& L, const vector<double>& b) {
   // check that matrix sizes match
   if (L.Rows() != b.size() || L.Rows() != L.Columns()) {
     cerr << "ForwardSubstitution error, illegal matrix/vector dimensions\n";
-    cerr << "  Matrix is " << L.Rows() << " x " << L.Columns()
+    cerr << "  Matrix is " << L.Rows() << " x " << L.Columns() 
 	 << ",  rhs is " << b.size() << " x 1\n";
     return vector<double>(0);
   }
@@ -1499,12 +1499,12 @@ int LinearSolve(Matrix& A, Matrix& X, Matrix& B) {
   if (A.Rows() != B.Rows() || A.Rows() != A.Columns() ||
       B.Columns() != X.Columns() || X.Rows() != A.Rows()) {
     cerr << "LinearSolve error, illegal matrix/vector dimensions\n";
-    cerr << "  Matrix is " << A.Rows() << " x " << A.Columns()
+    cerr << "  Matrix is " << A.Rows() << " x " << A.Columns() 
 	 << ",  rhs is " << B.Rows() << " x " << B.Columns()
 	 << ",  solution is " << X.Rows() << " x " << X.Columns() << endl;
     return 1;
   }
-
+  
   // create temporary variables
   long int i, j, k, p;
   double Amax;
@@ -1517,18 +1517,18 @@ int LinearSolve(Matrix& A, Matrix& X, Matrix& B) {
 
     // find the pivot row p
     p=k;
-    for (i=k; i<A.Rows(); i++)
+    for (i=k; i<A.Rows(); i++)  
       if (fabs(A.data[k][i]) > std::abs(A.data[k][p]))
 	p=i;
 
     // swap rows in A
-    for (j=k; j<A.Rows(); j++)
+    for (j=k; j<A.Rows(); j++) 
       std::swap(A.data[j][p], A.data[j][k]);
 
     // swap rows in B
     for (j=0; j<B.Columns(); j++)
       std::swap(B.data[j][p], B.data[j][k]);
-
+		
     // check for nonzero matrix diagonal
     if (fabs(A.data[k][k]) < STOL*Amax) {
       cerr << "LinearSolve error: numerically singular matrix!\n";
@@ -1538,7 +1538,7 @@ int LinearSolve(Matrix& A, Matrix& X, Matrix& B) {
     // perform elimination using row k
     for (i=k+1; i<A.Rows(); i++)      // store multipliers in column below pivot
       A.data[k][i] /= A.data[k][k];
-    for (j=k+1; j<A.Rows(); j++)      // loop over columns of A, to right of pivot
+    for (j=k+1; j<A.Rows(); j++)      // loop over columns of A, to right of pivot 
       for (i=k+1; i<A.Rows(); i++)    // update rows in column
 	A.data[j][i] -= A.data[k][i]*A.data[j][k];
     for (j=0; j<B.Columns(); j++)
@@ -1568,7 +1568,7 @@ Matrix LinearSolve(Matrix& A, Matrix& B) {
   // check that matrix sizes match
   if (A.Rows() != B.Rows() || A.Rows() != A.Columns()) {
     cerr << "LinearSolve error, illegal matrix/vector dimensions\n";
-    cerr << "  Matrix is " << A.Rows() << " x " << A.Columns()
+    cerr << "  Matrix is " << A.Rows() << " x " << A.Columns() 
 	 << ",  rhs is " << B.Rows() << " x " << B.Columns() << endl;
     return Matrix(0,0);
   } else {
@@ -1588,12 +1588,12 @@ int LinearSolve(Matrix& A, vector<double>& x, vector<double>& b) {
   if (A.Rows() != b.size() || A.Rows() != A.Columns() ||
       x.size() != A.Columns()) {
     cerr << "LinearSolve error, illegal matrix/vector dimensions\n";
-    cerr << "  Matrix is " << A.Rows() << " x " << A.Columns()
+    cerr << "  Matrix is " << A.Rows() << " x " << A.Columns() 
 	 << ",  rhs is " << b.size() << " x 1"
 	 << ",  solution is " << x.size() << " x 1\n";
     return 1;
   }
-
+  
   // create temporary variables
   long int i, j, k, p;
   double Amax;
@@ -1606,17 +1606,17 @@ int LinearSolve(Matrix& A, vector<double>& x, vector<double>& b) {
 
     // find the pivot row p
     p=k;
-    for (i=k; i<A.Rows(); i++)
+    for (i=k; i<A.Rows(); i++)  
       if (fabs(A.data[k][i]) > fabs(A.data[k][p]))
 	p=i;
 
     // swap rows in A
-    for (j=k; j<A.Rows(); j++)
+    for (j=k; j<A.Rows(); j++) 
       std::swap(A.data[j][p], A.data[j][k]);
 
     // swap rows in b
     std::swap(b[p], b[k]);
-
+		
     // check for nonzero matrix diagonal
     if (fabs(A.data[k][k]) < STOL*Amax) {
       cerr << "LinearSolve error: numerically singular matrix!\n";
@@ -1626,7 +1626,7 @@ int LinearSolve(Matrix& A, vector<double>& x, vector<double>& b) {
     // perform elimination using row k
     for (i=k+1; i<A.Rows(); i++)      // store multipliers in column below pivot
       A.data[k][i] /= A.data[k][k];
-    for (j=k+1; j<A.Rows(); j++)      // loop over columns of A, to right of pivot
+    for (j=k+1; j<A.Rows(); j++)      // loop over columns of A, to right of pivot 
       for (i=k+1; i<A.Rows(); i++)    // update rows in column
 	A.data[j][i] -= A.data[k][i]*A.data[j][k];
     for (i=k+1; i<A.Rows(); i++)      // update entries in b
@@ -1656,7 +1656,7 @@ vector<double> LinearSolve(Matrix& A, vector<double>& b) {
   // check that matrix sizes match
   if (A.Rows() != b.size() || A.Rows() != A.Columns()) {
     cerr << "LinearSolve error, illegal matrix/vector dimensions\n";
-    cerr << "  Matrix is " << A.Rows() << " x " << A.Columns()
+    cerr << "  Matrix is " << A.Rows() << " x " << A.Columns() 
 	 << ",  rhs is " << b.size() << " x 1\n";
     return vector<double>(0);
   }
