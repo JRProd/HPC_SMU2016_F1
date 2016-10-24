@@ -12,7 +12,10 @@ CXX = g++
 CXXFLAGS = -O2 -std=c++11
 
 # makefile targets
-all : test_Lagrange.exe
+all : test_Lagrange.exe test_Newtonform.exe test_Lagrange2D.exe
+
+test_Newtonform.exe : test_Newtonform.cpp func_Newtonform.cpp matrix.cpp
+	$(CXX) $(CSSFLAGS) $^ -o $@
 
 test_Lagrange.exe : Lagrange.cpp test_Lagrange.cpp matrix.cpp
 	$(CXX) $(CXXFLAGS) $^ -o $@
