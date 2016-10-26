@@ -17,7 +17,7 @@ using namespace std;
 
 // This routine tests the function lagrange2D.cpp.
 int main(int argc, char* argv[]) {
-  cout << "Hello World!";
+  
   // create Lambda function for f(x,y)
   auto f = [](const double x, const double y) -> double { 
     return (sinh(2.0*x)*cos(3.0*y));
