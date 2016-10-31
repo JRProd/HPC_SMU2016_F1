@@ -40,7 +40,7 @@ private:
 
 public:
 
-	//Get the value for 2D lkagrange
+	//Get the value for 2D lagrange
 	static double lagrange2D(Matrix& x, Matrix& y, Matrix& f, double a, double b, bool show_iterates)
 	{
 		//For debug
