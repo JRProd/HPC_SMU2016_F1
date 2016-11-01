@@ -75,11 +75,11 @@ e20tol = 3.7e-8
 e10norm = sqrt(sum(sum(e10**2))/size(e10))
 e20norm = sqrt(sum(sum(e20**2))/size(e20))
 if (e10norm > e10tol):
-    print 'p10 faulure!  ||e10|| = ', e10norm, ' is above tolerance of ',e10tol
+    print ('p10 faulure!  ||e10|| = ', e10norm, ' is above tolerance of ',e10tol)
 else:
-    print 'p10 success!  ||e10|| = ', e10norm, ' is below tolerance of ',e10tol
+    print ('p10 success!  ||e10|| = ', e10norm, ' is below tolerance of ',e10tol)
 if (e20norm > e20tol):
-    print 'p20 failure!  ||e20|| = ', e20norm, ' is above tolerance of ',e20tol
+    print ('p20 failure!  ||e20|| = ', e20norm, ' is above tolerance of ',e20tol)
 else:
-    print 'p20 success!  ||e20|| = ', e20norm, ' is below tolerance of ',e20tol
+    print ('p20 success!  ||e20|| = ', e20norm, ' is below tolerance of ',e20tol)
 

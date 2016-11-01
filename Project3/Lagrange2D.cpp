@@ -9,11 +9,8 @@ class Lagrange2D
 {
 private:
 	//Get the lagrange_basis
-	static double Lagrange_basis(Matrix& x, int i, double z, bool show_iterates)
+	static double Lagrange_basis(Matrix& x, int i, double z)
 	{
-		//For debug
-		if(show_iterates)
-			std::cout << "Lagrange_basis\n";
 		  double l = 1.0;              // initialize basis function
 
 		  for (size_t j=0; j<x.Size(); j++)
@@ -24,15 +21,11 @@ private:
 	}
 
 	//Get the 2D Lagrange basis
-	static double Lagrange2D_Basis(Matrix& xnodes, Matrix& ynodes, int i, int j, double x, double y, bool show_iterates)
+	static double Lagrange2D_Basis(Matrix& xnodes, Matrix& ynodes, int i, int j, double x, double y)
 	{
-		//For Debug
-		if(show_iterates)
-			std::cout << "Lagrange2D_Basis\n";
-
 		//Get the lagrange basis for x and y
-		double xLagrangeBasis = Lagrange_basis(xnodes, i, x, show_iterates);
-		double yLagrangeBasis = Lagrange_basis(ynodes, j, y, show_iterates);
+		double xLagrangeBasis = Lagrange_basis(xnodes, i, x);
+		double yLagrangeBasis = Lagrange_basis(ynodes, j, y);
 
 		//Combine them
 		return xLagrangeBasis * yLagrangeBasis;
@@ -40,13 +33,9 @@ private:
 
 public:
 
-	//Get the value for 2D lkagrange
-	static double lagrange2D(Matrix& x, Matrix& y, Matrix& f, double a, double b, bool show_iterates)
+	//Get the value for 2D lagrange
+	static double lagrange2D(Matrix& x, Matrix& y, Matrix& f, double a, double b)
 	{
-		//For debug
-		if(show_iterates)
-			std::cout << "Lagrange2D\n";
-
 		//Define computed
 		double computedPoint = 0.0;
 
@@ -56,12 +45,8 @@ public:
 			//Get the sum of y Rows
 			for(int j = 0; j < y.Rows(); j++)
 			{
-				//For Debug
-				if(show_iterates)
-					std::cout << "(i, j) :: (" << i << ", " << j << ")\n(a, b) :: " << "(" << a << ", " << b << ")\n\n";
-
 				//Calculate the lagrange2D
-				computedPoint += f(i,j) * Lagrange2D_Basis(x,y,i,j,a,b,false);
+				computedPoint += f(i,j) * Lagrange2D_Basis(x,y,i,j,a,b);
 			}
 		}
 		return computedPoint;
