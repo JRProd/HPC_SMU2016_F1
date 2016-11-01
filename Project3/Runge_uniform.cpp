@@ -14,7 +14,6 @@ double func(double x, double y)
 
 int main()
 {
-
 	Matrix a = Linspace(-4, 4, 201);
 	a.Write("avals.txt");
 	Matrix b = Linspace(-4, 4, 101);
@@ -45,7 +44,7 @@ int main()
 		for(int j = 0; j < 101; j++)
 		{
 			runge(i,j) = func(a(i), b(j));
-			p6(i,j) = Lagrange2D::lagrange2D(x, y, f, a(i), b(j), false);
+			p6(i,j) = Lagrange2D::lagrange2D(x, y, f, a(i), b(j));
 		}
 	}
 
@@ -64,7 +63,7 @@ int main()
 	{
 		for(int j = 0; j < n + 1; j++)
 		{
-			f(2i,j) = func(x2(i), y2(j));
+			f2(i,j) = func(x2(i), y2(j));
 		}
 	}
 
@@ -74,7 +73,7 @@ int main()
 	{
 		for(int j = 0; j < 101; j++)
 		{
-			p24(i,j) = Lagrange2D::lagrange2D(x2, y2, f2, a(i), b(j), false);
+			p24(i,j) = Lagrange2D::lagrange2D(x2, y2, f2, a(i), b(j));
 		}
 	}
 

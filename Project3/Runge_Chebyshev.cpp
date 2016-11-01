@@ -22,9 +22,14 @@ double chev(int L, int i, int m)
 
 int main()
 {
-	std::cout << "Hello World\n";
-	int m = 24;
-	int n = 24;
+
+	Matrix a = Linspace(-4, 4, 201);
+	a.Write("avals.txt");
+	Matrix b = Linspace(-4, 4, 101);
+	b.Write("bvals.txt");
+
+	int m = 6;
+	int n = 6;
 
 	Matrix x(m+1);
 	Matrix y(n+1);
@@ -44,25 +49,49 @@ int main()
 		}
 	}
 
-	Matrix a = Linspace(-4, 4, 201);
-	a.Write("avals.txt");
-	Matrix b = Linspace(-4, 4, 101);
-	b.Write("bvals.txt");
-
 	Matrix p6(201, 101);
-	Matrix runge(201, 101);
 
 	for(int i = 0; i < 201; i++)
 	{
 		for(int j = 0; j < 101; j++)
 		{
-			runge(i,j) = func(a(i), b(j));
-			p6(i,j) = Lagrange2D::lagrange2D(x, y, f, a(i), b(j), false);
+			p6(i,j) = Lagrange2D::lagrange2D(x, y, f, a(i), b(j));
 		}
 	}
 
-	std::cout << "Hello World\n";
+	p6.Write("p6_Cheb.txt");
+
+
+	m = 24;
+	n = 24;
+
+	Matrix x2(m+1);
+	Matrix y2(n+1);
+	for(int i = 0; i < m+1; i ++)
+	{
+		x2(i) = chev(4, i, m + 1);
+		y2(i) = chev(4, i, n + 1);
+	}
+
+	Matrix f2(m+1, n+1);
+
+	for(int i = 0; i < m + 1; i++)
+	{
+		for(int j = 0; j < n + 1; j++)
+		{
+			f2(i,j) = func(x2(i), y2(j));
+		}
+	}
+
+	Matrix p24(201, 101);
+
+	for(int i = 0; i < 201; i++)
+	{
+		for(int j = 0; j < 101; j++)
+		{
+			p24(i,j) = Lagrange2D::lagrange2D(x2, y2, f2, a(i), b(j));
+		}
+	}
 
 	p6.Write("p24_Cheb.txt");
-	runge.Write("Runge.txt");
 }

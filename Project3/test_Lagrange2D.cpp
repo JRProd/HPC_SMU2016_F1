@@ -47,7 +47,7 @@ int main(int argc, char* argv[]) {
   Matrix p(75,75);
   for (int j=0; j<75; j++) 
     for (int i=0; i<75; i++) 
-      p(i,j) = Lagrange2D::lagrange2D(x, y, z, a(i), b(j), false);
+      p(i,j) = Lagrange2D::lagrange2D(x, y, z, a(i), b(j));
 
   // output p to disk
   p.Write("p10.txt");
@@ -76,7 +76,7 @@ int main(int argc, char* argv[]) {
   // evaluate the polynomial at the points (a,b), storing back in p
   for (int j=0; j<75; j++) 
     for (int i=0; i<75; i++) 
-      p(i,j) = Lagrange2D::lagrange2D(x2, y2, z2, a(i), b(j), false);
+      p(i,j) = Lagrange2D::lagrange2D(x2, y2, z2, a(i), b(j));
 
   // output p to disk
   p.Write("p20.txt");
