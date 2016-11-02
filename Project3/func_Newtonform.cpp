@@ -62,20 +62,20 @@ public:
 			std::cout <<"P_4" << "(" << x << ") = ";
 
 		//Get the first value
-		double PofX = a(0);
+		double PofX = a(a.Rows()-1);
 
 		//For debug
 		if(show_iterates)
 			std::cout << PofX;
 
-		for(int i = 1; i < a.Rows(); i++)
+		for(int i = a.Rows() - 1; i > 0; i--)
 		{
 			//For debug
 			if(show_iterates)
 				std::cout << " + " << a(i) << " * ";
 
 			//Calculate the value for the x value
-			PofX += a(i) * Newton_basis(xnodes, i - 1, x, show_iterates);
+			PofX = a(i-1) + (x- xnodes(i-1))*PofX;
 		}
 		return PofX;
 	}
