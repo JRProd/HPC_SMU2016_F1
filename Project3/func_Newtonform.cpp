@@ -1,3 +1,9 @@
+/* Project - Project 3
+ * Professor - Dr. Xu
+ * Date - 11/3/16
+ * Author - Jake Rowland
+*/
+
 #include <iostream>
 
 #include "matrix.hpp"
