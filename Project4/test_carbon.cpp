@@ -6,7 +6,7 @@ double carbon(const double x, const double t,
 int main()
 {
 	Matrix T = Linspace(800,1200, 400);
-	Matrix t = Linspace(1, 2880, 600);
+	Matrix t = Linspace(1, 48*3600, 600);
 
 	double rtol = pow(10, -11);
 	double atol = pow(10, -15);
