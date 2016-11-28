@@ -1,3 +1,9 @@
+/* Project - Project 4
+ * Professor - Dr. Xu
+ * Author - Jake Rowland
+ * Date - 12/1/2016
+ * Purpose - Create integration method of O(h^8)
+*/
 
 #include <iostream>
 #include "fcn.hpp"

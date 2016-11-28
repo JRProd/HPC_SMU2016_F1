@@ -1,7 +1,9 @@
-/* Daniel R. Reynolds
-   SMU Mathematics
-   Math 3316
-   31 October 2015 */
+/* Project - Project 4
+ * Professor - Dr. Xu
+ * Author - Jake Rowland
+ * Date - 12/1/2016
+ * Purpose - Test composite_int.cpp
+*/
 
 // Inclusions
 #include <stdlib.h>
@@ -72,5 +74,3 @@ int main(int argc, char* argv[]) {
   }
   cout << "  ---------------------------------------------------\n";
 }
-
-
